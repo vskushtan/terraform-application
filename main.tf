@@ -15,7 +15,7 @@ provider "aws" {
 
 module "my_vpc" {
   source          = "./modules/vpc"
-  vpc_name        = "RD-VPC"
+  vpc_name        = "APP-VPC"
   av_zone         = ["eu-north-1a", "eu-north-1b"]
   public_subnets  = ["192.168.1.0/24", "192.168.2.0/24"]
   private_subnets = ["192.168.3.0/24", "192.168.4.0/24"]
@@ -25,7 +25,7 @@ module "my_vpc" {
 
 module "sg" {
   source      = "./modules/sg"
-  name_sg     = "public-sg"
+  name_sg     = "public-app-sg"
   vpc_id      = module.my_vpc.vpc_id
   cidr_blocks = "0.0.0.0/0"
   ingress_rules = [
