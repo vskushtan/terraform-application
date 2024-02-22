@@ -49,3 +49,16 @@ module "app-server" {
   ami_name_filter      = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
   key_name             = "my-devops-key"
 }
+
+module "monitoring-server" {
+  source               = "./modules/ec2"
+  count                = 1
+  instance_type        = "t3.small"
+  instance_env         = "prod"
+  instance_name        = "monitoring-server"
+  instance_role        = "monitoring"
+  subnet_id            = module.my_vpc.public_subnets_ids[0]
+  security_groups_name = module.sg.sg_id
+  ami_name_filter      = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
+  key_name             = "my-devops-key"
+}
